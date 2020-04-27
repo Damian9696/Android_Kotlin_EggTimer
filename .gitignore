@@ -1,0 +1,8 @@
+start/.gradle/
+/.idea/
+/.gradle/
+/gradle/wrapper/
+/local.properties
+/gradlew.bat
+/gradlew
+/EggTimer.iml
