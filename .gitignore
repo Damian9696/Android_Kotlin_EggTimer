@@ -6,4 +6,5 @@ start/.gradle/
 /gradlew.bat
 /gradlew
 /EggTimer.iml
-/app.iml
+app/app.iml
+*.iml
