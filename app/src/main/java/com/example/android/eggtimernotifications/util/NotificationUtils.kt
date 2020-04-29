@@ -24,6 +24,7 @@ import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.example.android.eggtimernotifications.MainActivity
 import com.example.android.eggtimernotifications.R
+import com.example.android.eggtimernotifications.receiver.SnoozeReceiver
 
 // Notification ID.
 private val NOTIFICATION_ID = 0
@@ -42,14 +43,26 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     // Create the content intent for the notification, which launches
     // this activity
     val contentIntent = Intent(applicationContext, MainActivity::class.java)
-
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
-    // TODO: Step 2.0 add style
+
+    val snoozeIntent = Intent(applicationContext, SnoozeReceiver::class.java)
+    val snoozePendingIntent: PendingIntent = PendingIntent.getBroadcast(
+        applicationContext,
+        //To update or cancel this pending intent, need to use this code to access the pending
+        // intent.
+        REQUEST_CODE,
+        //The snoozeIntent object which is the intent of the activity to be launched.
+        snoozeIntent,
+        //The quick action and the notification will disappear after the first tap which is why the
+        //intent can only be used once.
+        FLAGS
+    )
+
     val eggImage = BitmapFactory.decodeResource(
         applicationContext.resources,
         R.drawable.cooked_egg
@@ -59,8 +72,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .bigPicture(eggImage)
         //bigLargeIcon() to null so the large icon goes away when the notification is expanded
         .bigLargeIcon(null)
-
-    // TODO: Step 2.2 add snooze action
 
     val builder = NotificationCompat.Builder(
             applicationContext,
@@ -74,7 +85,12 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setStyle(bigPicStyle)
         //setLargeIcon on the builder so the image will be displayed as a smaller icon when notification is collapsed.
         .setLargeIcon(eggImage)
-    // TODO: Step 2.3 add snooze action
+        // This action will be used to trigger the right broadcastReceiver.
+        .addAction(
+            R.drawable.egg_icon,
+            applicationContext.getString(R.string.snooze),
+            snoozePendingIntent
+        )
 
     // TODO: Step 2.5 set priority
 
