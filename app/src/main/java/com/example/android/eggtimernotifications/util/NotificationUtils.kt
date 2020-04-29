@@ -20,6 +20,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import com.example.android.eggtimernotifications.MainActivity
 import com.example.android.eggtimernotifications.R
@@ -49,6 +50,15 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         PendingIntent.FLAG_UPDATE_CURRENT
     )
     // TODO: Step 2.0 add style
+    val eggImage = BitmapFactory.decodeResource(
+        applicationContext.resources,
+        R.drawable.cooked_egg
+    )
+
+    val bigPicStyle = NotificationCompat.BigPictureStyle()
+        .bigPicture(eggImage)
+        //bigLargeIcon() to null so the large icon goes away when the notification is expanded
+        .bigLargeIcon(null)
 
     // TODO: Step 2.2 add snooze action
 
@@ -61,6 +71,9 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
+        .setStyle(bigPicStyle)
+        //setLargeIcon on the builder so the image will be displayed as a smaller icon when notification is collapsed.
+        .setLargeIcon(eggImage)
     // TODO: Step 2.3 add snooze action
 
     // TODO: Step 2.5 set priority
@@ -71,6 +84,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
 }
 
-fun NotificationManager.cancelNotification(){
+fun NotificationManager.cancelNotification() {
     cancelAll()
 }
