@@ -91,8 +91,8 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             applicationContext.getString(R.string.snooze),
             snoozePendingIntent
         )
-
-    // TODO: Step 2.5 set priority
+        //Support devices running API level 25 or lower.
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
 
     //Directly call notify() since performing the call from an extension function on the
     //same class

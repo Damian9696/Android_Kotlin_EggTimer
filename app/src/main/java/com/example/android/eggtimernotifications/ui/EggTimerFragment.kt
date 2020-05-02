@@ -61,7 +61,8 @@ class EggTimerFragment : Fragment() {
             val notificationChannel = NotificationChannel(
                 channelId,
                 channelName,
-                NotificationManager.IMPORTANCE_LOW
+                //Make a sound and appear as a heads-up notification.
+                NotificationManager.IMPORTANCE_HIGH
             )
 
             notificationChannel.enableLights(true)
