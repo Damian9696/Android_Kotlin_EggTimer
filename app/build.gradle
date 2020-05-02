@@ -17,6 +17,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+// Google Play services Gradle plugin
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
