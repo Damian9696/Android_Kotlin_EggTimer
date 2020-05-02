@@ -50,7 +50,8 @@ class EggTimerFragment : Fragment() {
 
         createChannel(
             getString(R.string.egg_notification_channel_id),
-            getString(R.string.egg_notification_channel_name))
+            getString(R.string.egg_notification_channel_name)
+        )
 
         return binding.root
     }
@@ -64,6 +65,10 @@ class EggTimerFragment : Fragment() {
                 //Make a sound and appear as a heads-up notification.
                 NotificationManager.IMPORTANCE_HIGH
             )
+                //Disable badges for this channel
+                .apply {
+                    setShowBadge(false)
+                }
 
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
